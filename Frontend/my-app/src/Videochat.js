@@ -1,26 +1,54 @@
 import React from 'react';
+import { Button} from 'react-bootstrap';
 import logo from './logo.svg';
 import './App.css';
 
-function Videochat() {
-  return (
-    <div className="videochat">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const { connect } = require('twilio-video');
+const backendUrl = 'localhost:1000'
+
+class Videochat extends React.Component {
+  constructor(props) {
+    super(props)
+    this.getAccessToken = this.getAccessToken.bind(this)
+  }
+
+  state = {
+    backendUrl: 'http://localhost:1000',
+    userName: 'Bob',
+    id: '123456',
+    accessToken: ''
+  }
+
+  getAccessToken(){
+    fetch(`${this.state.backendUrl}/video?name=${this.state.userName}&id=${this.state.id}`)
+      .then(res => res.json())
+      .then((result) => 
+        this.connectToRoom(result, this.state.id)
+      )
+  }
+
+  connectToRoom(accessToken, id) {
+    connect(accessToken, {name: id}).then(room => {
+        console.log(`Successfully joined a Room: ${room}`);
+        room.on('participantConnected', participant => {
+            console.log(`A remote Participant connected ${participant}`)
+        });
+    }, error => {
+        console.log(`Unable to connect to Room: ${error.message}`)
+    });
+}
+
+  render() {
+    return (
+      <div className="videochat">
+        <header className="App-header">
+          <Button onClick={this.getAccessToken}>
+            To Videochat
+          </Button>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default Videochat;

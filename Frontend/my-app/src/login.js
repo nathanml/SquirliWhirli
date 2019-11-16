@@ -14,6 +14,11 @@ export default function Login(props) {
     event.preventDefault();
   }
 
+  function goToInternalLink(path){
+      var myDomain = 'http://example.com';
+      window.location.href = myDomain + "/" + path;
+    }
+
   return (
     <div className="Login">
       <form onSubmit={handleSubmit}>
@@ -37,9 +42,7 @@ export default function Login(props) {
         <Button block bsSize="large" disabled={!validateForm()} type="submit">
           Login
         </Button>
-        <Button block bsSize="large" disabled={!validateForm()} type="submit">
-          Create an account
-        </Button>
+        <input type="button" value="GO!" onclick="goToInteralLink('android_asset/home.html')"/>
       </form>
     </div>
   );

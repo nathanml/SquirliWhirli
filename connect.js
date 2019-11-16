@@ -4,5 +4,5 @@ let connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'squirlidb'
+    database: '../bostonhacksdb.mwb'
 });

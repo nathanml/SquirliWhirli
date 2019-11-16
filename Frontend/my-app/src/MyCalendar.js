@@ -12,12 +12,12 @@ onChange = date => this.setState({date})
 render(){
     return(
         <div>
-            <MyCalendar
+            <Calendar
                 onChange = {this.onChange}
-                showWeekNumbers
+                // showWeekNumbers
                 value = {this.state.date}
                />
         </div>
-        )
+        );
     }
 }

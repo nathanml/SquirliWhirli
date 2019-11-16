@@ -1,0 +1,19 @@
+{
+  "name": "squirliwhirli",
+  "version": "1.0.0",
+  "description": "Video chat for elder patiens and doctors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nathanml/SquirliWhirli.git"
+  },
+  "author": "Jacob Ehrlich, Cathy Kim, Nathan Levy, Tyler Donati",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nathanml/SquirliWhirli/issues"
+  },
+  "homepage": "https://github.com/nathanml/SquirliWhirli#readme"
+}

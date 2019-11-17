@@ -10,17 +10,21 @@ var con = mysql.createConnection({
     port: '1000'
   });
   
-con.connect();
-console.log("MySQL connected")
-
-con.query('SELECT * FROM doctors', function (error, results, fields) {
-    if (error) throw error;
-    //console.log('The solution is: ', results[0].solution);
-    console.log("DATA FROM DOCTORS")
+  con.connect((err) => {
+    if(err){
+      console.log('Error connecting to Db');
+      return;
+    }
+    console.log('MYSQL connected');
   });
-
+  
+ /*  con.query("SELECT * FROM accounts", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+    }); */
+con.end((err) => {
+})
 app.listen('1000', () =>{
     console.log("Server started on 1000")
 })
 console.log("HELLO!!!")
-con.end();

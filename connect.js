@@ -10,17 +10,10 @@ app.use(bodyParser.urlencoded({
 
 //open the database
 
-let dbase = new mysql.Database("", mysql.OPEN_READWRITE, (err) =>{
+let dbase = new mysql.Database("/Users/nathannew/SquirliWhirli/bostonhacksdb.mwb", mysql.OPEN_READWRITE, (err) =>{
 	if(err){
 		console.error(err.message)
 
 	}
 console.log("Database accessed")
 })
-
-let connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: '../bostonhacksdb.mwb'
-});

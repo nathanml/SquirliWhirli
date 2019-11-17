@@ -10,14 +10,13 @@ import * as serviceWorker from './serviceWorker';
 //ReactDOM.render(<App />, document.getElementById('root'));
 
 ReactDOM.render(
-    // <BrowserRouter>
-    //     <Switch>
-    //         <Route exact path="/" component={App} />
-    //         <Route exact path="/login" component={Login}/>
-    //         <Route exact path="/signup" component={Signup} />
-    //     </Switch>
-    // </BrowserRouter>,
-    <App />,
+    <BrowserRouter>
+        <Switch>
+            <Route exact path="/" component={App} />
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/signup" component={Signup} />
+        </Switch>
+    </BrowserRouter>,
     document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change

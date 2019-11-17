@@ -12,7 +12,8 @@ class Signup extends React.Component{
       email: '',
       password: '',
       cpassword: '',
-      patient: true
+      patient: true,
+      nonmatch: false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -22,16 +23,16 @@ class Signup extends React.Component{
   //   this.setState(this.validateForm)
   //   return this.state.email.length > 0 && this.state.password.length > 0;
   // }
-
   handleSubmit(event) {
     event.preventDefault();
     if(!this.checkPassword()) {
         this.setState({
             password: '',
-            cpassword: ''
+            cpassword: '',
+            nonmatch: true
         })
-        var warning = document.getElementById("password-warning");
-        warning.classList.toggle("enabled");
+        // var warning = document.getElementById("password-warning");
+        // warning.style.display = 'block';
     }
     
   }
@@ -81,9 +82,9 @@ class Signup extends React.Component{
               type="password"
             />
           </FormGroup>
-          <label id="password-warning">
+          {/* <div display='none' id="password-warning">
               Passwords do not match: Invalid
-          </label>
+          </div> */}
           <Button type="signup" onClick={(e) => {this.handleSubmit(e)}}>
             Create Account
           </Button>

@@ -8,7 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
-const { connect } = require('twilio-video');
+const { connect, createLocalVideoTrack } = require('twilio-video');
 const backendUrl = 'localhost:1000'
 
 let dom = document.getElementById("app")
@@ -35,12 +35,20 @@ class Videochat extends React.Component {
       )
   }
 
+/*   leaveRoom(){
+    fetch(`${this.state.backendUrl}/video?name=${this.state.userName}&id=${this.state.id}`)
+      .then(res => res.json())
+      .then((result) => 
+        this.disconnectFromRoom(result, this.state.id)
+      )
+  } */
+
+
   connectToRoom(accessToken, id) {
     connect(accessToken, {name: id}).then(room => {
         console.log(`Successfully joined a Room: ${room}`);
         room.on('participantConnected', participant => {
             console.log(`A remote Participant connected ${participant}`)
-
             participant.tracks.forEach(publication => {
               if (publication.isSubscribed) {
                 const track = publication.track;
@@ -55,7 +63,42 @@ class Videochat extends React.Component {
     }, error => {
         console.log(`Unable to connect to Room: ${error.message}`)
     });
+    connect(accessToken,{name: id},{
+      audio: true,
+      name: id,
+      video: {width: 640}
+    }).then(room => {
+      console.log(`Connected  to Room: ${room.name}`)
+      const localParticipant = room.localParticipant;
+      console.log(`Connected to the Room as LocalParticpant "${localParticipant.identity}"`);
+
+      room.participants.forEach(participant =>{
+        console.log(`Participant "${participant.identity}" is connect to the Room`);
+      })
+
+      room.once('participantConnected' , participant => {
+        console.log(`Participant "${participant.identity}" has connected to the Room`);
+      })
+
+      room.once('participantDisconnect',  participant => {
+        console.log(`Participant "${participant.identity}" has disconnected from the Room`)
+      })
+
+      room.on('participantConnected', participant => {
+        console.log(`Participant connected: ${participant.identity}`)
+      })
+      room.on('particpantDisconnected', participant => {
+        console.log(`Participant disconnected: ${participant.identity}`)
+      })
+    })
+    createLocalVideoTrack().then(track => {
+      const localMediaContainer = document.getElementById('local-media')
+      localMediaContainer.appendChild(track.attach())
+    })
   }
+  
+
+
 
   render() {
     return (
@@ -70,8 +113,13 @@ class Videochat extends React.Component {
               <VideoComponent/>
             </div>
             <div id='remote-media-div'>
+            </div>
+            <div id = 'local-media'>
 
             </div>
+            {/* <Button onClick = {this.disconnectFromRoom}>
+              Leave Videochat
+              </Button> */}
           </MuiThemeProvider>
         </header>
       </div>

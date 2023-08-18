@@ -1,5 +1,5 @@
 # SquirliWhirli
-Video chat for elder patients and doctors (created at BostonHacks 2019)
+A telehealth platform for seniors built using Node, React, and MySQL for scheduling appointments and consulting with doctors and care providers over video chat.
 
 ## Things I learned
 1. NodeJS
